@@ -30,7 +30,7 @@ class DashboardContainer extends React.Component {
     window.setInterval(this.props.fetchDroneData, 3000);
   };
   render = () => {
-    const { classes, droneData } = this.props;
+    const { classes, droneData, forecast } = this.props;
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
@@ -39,7 +39,8 @@ class DashboardContainer extends React.Component {
             <DroneMap droneData={droneData} />
           </Grid>
           <Grid item xs={10} sm={5}>
-            <WeatherChart className={classes.chart} />
+            <h1>Forecast for {forecast.title}</h1>
+            <WeatherChart className={classes.chart} forecast={forecast} />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={1} />
@@ -59,20 +60,14 @@ DashboardContainer.propTypes = {
 };
 
 const MapState = state => {
-  return { droneData: state.droneData };
+  return { droneData: state.droneData, forecast: state.forecast };
 };
 
 const MapDispatch = dispatch => {
   return {
     fetchDroneData: () => {
       dispatch({ type: actions.FETCH_DRONE_DATA });
-    },
-    fetchWeather: (lng, lat) =>
-      dispatch({
-        type: actions.FETCH_WEATHER,
-        longitude: lng,
-        latitude: lat
-      })
+    }
   };
 };
 

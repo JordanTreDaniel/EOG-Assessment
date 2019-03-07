@@ -1,7 +1,9 @@
 import * as actions from "../actions";
+import sampleForcast from "../../components/sampleForecast";
 
 const initialState = {
-  loading: false
+  loading: false,
+  ...sampleForcast
 };
 
 const startLoading = (state, action) => {
