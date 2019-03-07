@@ -19,9 +19,17 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  chart: {
+    marginTop: "auto"
   }
 });
-
+//use this in refactor to clean up time UX
+// function toDateTime(secs) {
+//   var t = new Date(1970, 0, 1); // Epoch
+//   t.setSeconds(secs);
+//   return t;
+// }
 class DashboardContainer extends React.Component {
   componentWillMount = () => {
     this.props.fetchDroneData();
@@ -37,7 +45,7 @@ class DashboardContainer extends React.Component {
             <DroneMap droneData={droneData} />
           </Grid>
           <Grid item xs={10} sm={5}>
-            <WeatherChart />
+            <WeatherChart className={classes.chart} />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={1} />
