@@ -7,6 +7,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { connect } from "react-redux";
+import * as actions from "../store/actions";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import fetchDroneData from "../store/api/fetchDroneData";
 
 const styles = theme => ({
   root: {
@@ -54,7 +58,7 @@ const measurements = [
   }
 ];
 
-function SimpleTable(props) {
+function DashboardTable(props) {
   const { classes } = props;
 
   return (
@@ -87,8 +91,21 @@ function SimpleTable(props) {
   );
 }
 
-SimpleTable.propTypes = {
+DashboardTable.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleTable);
+const MapState = state => {
+  data: state.droneData;
+};
+
+const MapDispatch = dispatch => {
+  fetchDroneData: () => dispatch({ type: actions.FETCH_DRONE_DATA });
+};
+
+export default withStyles(styles)(
+  connect(
+    MapState,
+    MapDispatch
+  )(DashboardTable)
+);
