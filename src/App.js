@@ -1,14 +1,14 @@
 import React from "react";
 import createStore from "./store";
 import { Provider } from "react-redux";
-import { ToastContainer } from "react-toastify";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import NowWhat from "./components/NowWhat";
-
+import HomeContainer from "./containers/HomeContainer";
+import DashboardContainer from "./containers/DashboardContainer";
 const store = createStore();
 const theme = createMuiTheme({
   typography: {
@@ -33,8 +33,12 @@ const App = props => (
     <Provider store={store}>
       <Wrapper>
         <Header />
-        <NowWhat />
-        <ToastContainer />
+        <Router>
+          <>
+            <Route path="/" exact component={HomeContainer} />
+            <Route path="/dashboard" component={DashboardContainer} />
+          </>
+        </Router>
       </Wrapper>
     </Provider>
   </MuiThemeProvider>
