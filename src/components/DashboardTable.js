@@ -19,18 +19,39 @@ const styles = theme => ({
   }
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
+const measurements = [
+  {
+    timestamp: 1551920496000,
+    metric: 316.9665585828055,
+    latitude: 31.061953284449004,
+    longitude: -90.53714884381598,
+    uom: "temperature - fahrenheit",
+    accuracy: 68.93078014944133
+  },
+  {
+    timestamp: 1551920500000,
+    metric: 317.11771102923944,
+    latitude: 30.989372920800786,
+    longitude: -90.51825478801175,
+    uom: "temperature - fahrenheit",
+    accuracy: 14.10307018041325
+  },
+  {
+    timestamp: 1551920504000,
+    metric: 317.26013715431225,
+    latitude: 30.916517322081106,
+    longitude: -90.50045152237765,
+    uom: "temperature - fahrenheit",
+    accuracy: 62.32569829667779
+  },
+  {
+    timestamp: 1551920508000,
+    metric: 317.39380491274653,
+    latitude: 30.843402880492317,
+    longitude: -90.48374305257336,
+    uom: "temperature - fahrenheit",
+    accuracy: 39.08694828342827
+  }
 ];
 
 function SimpleTable(props) {
@@ -41,25 +62,25 @@ function SimpleTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat (g)</TableCell>
-            <TableCell align="right">Carbs (g)</TableCell>
-            <TableCell align="right">Protein (g)</TableCell>
+            <TableCell>Temperature</TableCell>
+            <TableCell align="right">Latitude</TableCell>
+            <TableCell align="right">Longitude</TableCell>
+            <TableCell align="right">Seconds Elapsed</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
+          {measurements.map((m, idx) => {
+            return (
+              <TableRow key={idx}>
+                <TableCell component="th" scope="row">
+                  {m.metric}
+                </TableCell>
+                <TableCell align="right">{m.latitude}</TableCell>
+                <TableCell align="right">{m.longitude}</TableCell>
+                <TableCell align="right">{m.timestamp}</TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </Paper>
