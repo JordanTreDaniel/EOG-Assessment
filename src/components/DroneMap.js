@@ -17,45 +17,40 @@ const MyMapComponent = compose(
   }),
   withScriptjs,
   withGoogleMap
-)(props => (
-  <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-    {props.isMarkerShown && (
-      <Marker
-        position={{ lat: -34.397, lng: 150.644 }}
-        onClick={props.onMarkerClick}
-      />
-    )}
-  </GoogleMap>
-));
+)(props => {
+  const measurement = props.droneData.measurements[0];
+  const droneLocation = measurement
+    ? {
+        lat: measurement.latitude,
+        lng: measurement.longitude
+      }
+    : {
+        lng: -95.3698,
+        lat: 29.7604
+      };
+  return (
+    <GoogleMap defaultZoom={6} center={droneLocation}>
+      {props.isMarkerShown && (
+        <Marker position={droneLocation} onClick={props.onMarkerClick} />
+      )}
+    </GoogleMap>
+  );
+});
 
 class DroneMap extends React.PureComponent {
   state = {
-    isMarkerShown: false
+    isMarkerShown: true
   };
 
-  componentDidMount() {
-    this.delayedShowMarker();
-  }
-
-  delayedShowMarker = () => {
-    setTimeout(() => {
-      this.setState({ isMarkerShown: true });
-    }, 3000);
-  };
-
-  handleMarkerClick = () => {
-    this.setState({ isMarkerShown: false });
-    this.delayedShowMarker();
-  };
-
-  render() {
+  render = () => {
     return (
       <MyMapComponent
         isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
+        onMarkerClick={null}
+        droneData={this.props.droneData}
       />
     );
-  }
+  };
 }
 
 export default DroneMap;

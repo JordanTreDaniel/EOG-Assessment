@@ -27,12 +27,11 @@ class DashboardContainer extends React.Component {
   };
   render = () => {
     const { classes, droneData } = this.props;
-
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
           <Grid item xs={11}>
-            <DroneMap />
+            <DroneMap droneData={droneData} />
           </Grid>
           <Grid item xs />
           <Grid item xs={11} sm={11}>
