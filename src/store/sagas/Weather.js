@@ -28,6 +28,17 @@ function* watchWeatherIdReceived(action) {
   yield put({ type: actions.WEATHER_DATA_RECEIVED, data });
 }
 
+function* getForecast(action) {
+  const { id } = action;
+  const { error, data } = yield call(API.getForecast, id);
+  if (error) {
+    yield put({ type: actions.API_ERROR, code: error.code });
+    yield cancel();
+    return;
+  }
+  yield put({ type: actions.FORECAST_DATA_RECEIVED, data });
+}
+
 function* watchFetchWeather(action) {
   const { latitude, longitude } = action;
   const { error, data } = yield call(
@@ -53,7 +64,9 @@ function* watchFetchWeather(action) {
 function* watchAppLoad() {
   yield all([
     takeEvery(actions.FETCH_WEATHER, watchFetchWeather),
-    takeEvery(actions.WEATHER_ID_RECEIVED, watchWeatherIdReceived)
+    takeEvery(actions.WEATHER_ID_RECEIVED, watchWeatherIdReceived),
+    takeEvery(actions.DRONE_DATA_RECEIVED, watchFetchWeather),
+    takeEvery(actions.WEATHER_ID_RECEIVED, getForecast)
   ]);
 }
 

@@ -24,12 +24,6 @@ const styles = theme => ({
     marginTop: "auto"
   }
 });
-//use this in refactor to clean up time UX
-// function toDateTime(secs) {
-//   var t = new Date(1970, 0, 1); // Epoch
-//   t.setSeconds(secs);
-//   return t;
-// }
 class DashboardContainer extends React.Component {
   componentWillMount = () => {
     this.props.fetchDroneData();
@@ -39,7 +33,7 @@ class DashboardContainer extends React.Component {
     const { classes, droneData } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={12}>
+        <Grid container spacing={16}>
           <Grid item xs={1} />
           <Grid item xs={10} sm={5}>
             <DroneMap droneData={droneData} />
@@ -73,7 +67,13 @@ const MapDispatch = dispatch => {
     fetchDroneData: () => {
       console.log("fetching");
       dispatch({ type: actions.FETCH_DRONE_DATA });
-    }
+    },
+    fetchWeather: (lng, lat) =>
+      dispatch({
+        type: actions.FETCH_WEATHER,
+        longitude: lng,
+        latitude: lat
+      })
   };
 };
 
