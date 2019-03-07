@@ -1,7 +1,6 @@
 import { takeLatest, call, put, cancel } from "redux-saga/effects";
 import API from "../api";
 import * as actions from "../actions";
-import * as actions from "../store/actions";
 /*
   1. The weather service requires us to make a search by lat/lng to find its
   weather ID.
@@ -18,6 +17,7 @@ import * as actions from "../store/actions";
 */
 
 function* fetchDroneData() {
+  yield put({ type: actions.FETCH_DRONE_DATA });
   const { error, data } = yield call(API.fetchDroneData);
   if (error) {
     yield put({ type: actions.API_ERROR, code: error.code });
@@ -28,7 +28,7 @@ function* fetchDroneData() {
 }
 
 function* watchFetchDroneData() {
-  yield takeLatest(actions.FETCH_WEATHER, watchFetchWeather);
+  yield takeLatest(actions.FETCH_WEATHER, fetchDroneData);
 }
 
 export default [watchFetchDroneData];

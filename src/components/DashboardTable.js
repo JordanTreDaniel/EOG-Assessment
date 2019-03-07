@@ -96,11 +96,11 @@ DashboardTable.propTypes = {
 };
 
 const MapState = state => {
-  data: state.droneData;
+  return { data: state.droneData };
 };
 
 const MapDispatch = dispatch => {
-  fetchDroneData: () => dispatch({ type: actions.FETCH_DRONE_DATA });
+  return { fetchDroneData: () => dispatch({ type: actions.FETCH_DRONE_DATA }) };
 };
 
 export default withStyles(styles)(

@@ -20,8 +20,8 @@ const droneDataRecevied = (state, action) => {
 };
 
 const handlers = {
-  [actions.DRONE_DATA_RECEIVED]: weatherDataRecevied,
-  [actions.FETCH_DRONE_DATA]: startLoading
+  [actions.FETCH_DRONE_DATA]: startLoading,
+  [actions.DRONE_DATA_RECEIVED]: droneDataRecevied
 };
 
 export default (state = initialState, action) => {
