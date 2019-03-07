@@ -8,10 +8,12 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import fetchDroneData from "../store/api/fetchDroneData";
+import WeatherChart from "../components/WeatherChart";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginTop: "5vh"
   },
   paper: {
     padding: theme.spacing.unit * 2,
@@ -29,16 +31,22 @@ class DashboardContainer extends React.Component {
     const { classes, droneData } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs={11}>
+        <Grid container spacing={12}>
+          <Grid item xs={1} />
+          <Grid item xs={10} sm={5}>
             <DroneMap droneData={droneData} />
           </Grid>
-          <Grid item xs />
-          <Grid item xs={11} sm={11}>
+          <Grid item xs={10} sm={5}>
+            <WeatherChart />
+          </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={1} />
+          <Grid item xs={10} sm={10}>
             <DashboardTable droneData={droneData} />
           </Grid>
-          <Grid item xs />
+          <Grid item xs={1} />
         </Grid>
+        <Grid className={classes.root} />
       </div>
     );
   };
