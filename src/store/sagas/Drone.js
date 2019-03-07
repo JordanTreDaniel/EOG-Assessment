@@ -18,7 +18,7 @@ import * as actions from "../actions";
 */
 
 function* fetchDroneData() {
-  yield put({ type: actions.FETCH_DRONE_DATA });
+  yield put({ type: actions.LOADING_DRONE_DATA });
   const { error, data } = yield call(API.fetchDroneData);
   if (error) {
     yield put({ type: actions.API_ERROR, code: error.code });
@@ -29,7 +29,7 @@ function* fetchDroneData() {
 }
 
 function* watchFetchDroneData() {
-  yield takeLatest(actions.FETCH_WEATHER, fetchDroneData);
+  yield takeLatest(actions.FETCH_DRONE_DATA, fetchDroneData);
 }
 
 export default [watchFetchDroneData];

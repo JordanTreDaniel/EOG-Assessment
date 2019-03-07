@@ -26,7 +26,7 @@ const styles = theme => ({
 class DashboardTable extends React.Component {
   componentWillMount = () => {
     this.props.fetchDroneData();
-    // window.setInterval(this.props.fetchDroneData, 3000);
+    window.setInterval(this.props.fetchDroneData, 3000);
   };
   render = () => {
     const { classes, droneData } = this.props;
@@ -35,15 +35,14 @@ class DashboardTable extends React.Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Temperature</TableCell>
+              <TableCell>Metric</TableCell>
               <TableCell align="right">Latitude</TableCell>
               <TableCell align="right">Longitude</TableCell>
-              <TableCell align="right">Seconds Elapsed</TableCell>
+              <TableCell align="right">Timestamp</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {droneData.measurements.map((m, idx) => {
-              debugger;
               return (
                 <TableRow key={idx}>
                   <TableCell component="th" scope="row">
@@ -73,6 +72,7 @@ const MapState = state => {
 const MapDispatch = dispatch => {
   return {
     fetchDroneData: () => {
+      console.log("fetching");
       dispatch({ type: actions.FETCH_DRONE_DATA });
     }
   };
