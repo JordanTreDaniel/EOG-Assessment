@@ -65,7 +65,6 @@ const MapState = state => {
 const MapDispatch = dispatch => {
   return {
     fetchDroneData: () => {
-      console.log("fetching");
       dispatch({ type: actions.FETCH_DRONE_DATA });
     },
     fetchWeather: (lng, lat) =>

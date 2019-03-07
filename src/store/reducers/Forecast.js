@@ -9,7 +9,6 @@ const startLoading = (state, action) => {
 };
 
 const forecastDataReceived = (state, action) => {
-  debugger;
   return {
     ...state,
     loading: false,

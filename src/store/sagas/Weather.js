@@ -36,10 +36,12 @@ function* getForecast(action) {
     yield cancel();
     return;
   }
+  console.log(`Forecast for ${data.title}`);
   yield put({ type: actions.FORECAST_DATA_RECEIVED, data });
 }
 
 function* watchFetchWeather(action) {
+  action = action.latitude ? action : action.data.data[0];
   const { latitude, longitude } = action;
   const { error, data } = yield call(
     API.findLocationByLatLng,
@@ -64,8 +66,8 @@ function* watchFetchWeather(action) {
 function* watchAppLoad() {
   yield all([
     takeEvery(actions.FETCH_WEATHER, watchFetchWeather),
-    takeEvery(actions.WEATHER_ID_RECEIVED, watchWeatherIdReceived),
     takeEvery(actions.DRONE_DATA_RECEIVED, watchFetchWeather),
+    takeEvery(actions.WEATHER_ID_RECEIVED, watchWeatherIdReceived),
     takeEvery(actions.WEATHER_ID_RECEIVED, getForecast)
   ]);
 }
