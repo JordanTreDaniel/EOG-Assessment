@@ -31,15 +31,15 @@ const App = props => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
-      <Wrapper>
-        <Header />
-        <Router>
+      <Router>
+        <Wrapper>
+          <Header />
           <>
             <Route path="/" exact component={HomeContainer} />
             <Route path="/dashboard" component={DashboardContainer} />
           </>
-        </Router>
-      </Wrapper>
+        </Wrapper>
+      </Router>
     </Provider>
   </MuiThemeProvider>
 );
