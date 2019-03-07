@@ -5,7 +5,6 @@ import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import droneReducer from "./reducers/Drone";
 export default () => {
-  console.log(droneReducer);
   const rootReducer = combineReducers({
     weather: weatherReducer,
     droneData: droneReducer
