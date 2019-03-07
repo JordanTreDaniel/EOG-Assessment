@@ -23,72 +23,43 @@ const styles = theme => ({
   }
 });
 
-const measurements = [
-  {
-    timestamp: 1551920496000,
-    metric: 316.9665585828055,
-    latitude: 31.061953284449004,
-    longitude: -90.53714884381598,
-    uom: "temperature - fahrenheit",
-    accuracy: 68.93078014944133
-  },
-  {
-    timestamp: 1551920500000,
-    metric: 317.11771102923944,
-    latitude: 30.989372920800786,
-    longitude: -90.51825478801175,
-    uom: "temperature - fahrenheit",
-    accuracy: 14.10307018041325
-  },
-  {
-    timestamp: 1551920504000,
-    metric: 317.26013715431225,
-    latitude: 30.916517322081106,
-    longitude: -90.50045152237765,
-    uom: "temperature - fahrenheit",
-    accuracy: 62.32569829667779
-  },
-  {
-    timestamp: 1551920508000,
-    metric: 317.39380491274653,
-    latitude: 30.843402880492317,
-    longitude: -90.48374305257336,
-    uom: "temperature - fahrenheit",
-    accuracy: 39.08694828342827
-  }
-];
-
-function DashboardTable(props) {
-  const { classes } = props;
-
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Temperature</TableCell>
-            <TableCell align="right">Latitude</TableCell>
-            <TableCell align="right">Longitude</TableCell>
-            <TableCell align="right">Seconds Elapsed</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {measurements.map((m, idx) => {
-            return (
-              <TableRow key={idx}>
-                <TableCell component="th" scope="row">
-                  {m.metric}
-                </TableCell>
-                <TableCell align="right">{m.latitude}</TableCell>
-                <TableCell align="right">{m.longitude}</TableCell>
-                <TableCell align="right">{m.timestamp}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+class DashboardTable extends React.Component {
+  componentWillMount = () => {
+    this.props.fetchDroneData();
+    // window.setInterval(this.props.fetchDroneData, 3000);
+  };
+  render = () => {
+    const { classes, droneData } = this.props;
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Temperature</TableCell>
+              <TableCell align="right">Latitude</TableCell>
+              <TableCell align="right">Longitude</TableCell>
+              <TableCell align="right">Seconds Elapsed</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {droneData.measurements.map((m, idx) => {
+              debugger;
+              return (
+                <TableRow key={idx}>
+                  <TableCell component="th" scope="row">
+                    {m.metric}
+                  </TableCell>
+                  <TableCell align="right">{m.latitude}</TableCell>
+                  <TableCell align="right">{m.longitude}</TableCell>
+                  <TableCell align="right">{m.timestamp}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  };
 }
 
 DashboardTable.propTypes = {
@@ -96,11 +67,15 @@ DashboardTable.propTypes = {
 };
 
 const MapState = state => {
-  return { data: state.droneData };
+  return { droneData: state.droneData };
 };
 
 const MapDispatch = dispatch => {
-  return { fetchDroneData: () => dispatch({ type: actions.FETCH_DRONE_DATA }) };
+  return {
+    fetchDroneData: () => {
+      dispatch({ type: actions.FETCH_DRONE_DATA });
+    }
+  };
 };
 
 export default withStyles(styles)(

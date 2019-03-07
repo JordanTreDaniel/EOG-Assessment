@@ -2,7 +2,7 @@ import * as actions from "../actions";
 
 const initialState = {
   loading: false,
-  data: []
+  measurements: []
 };
 
 const startLoading = (state, action) => {
@@ -10,12 +10,11 @@ const startLoading = (state, action) => {
 };
 
 const droneDataRecevied = (state, action) => {
-  const { data } = action;
-  if (typeof data != Array) return state;
+  const measurements = action.data.data;
   return {
     ...state,
     loading: false,
-    data
+    measurements
   };
 };
 
