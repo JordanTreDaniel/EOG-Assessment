@@ -27,18 +27,13 @@ const WeatherChart = props => {
 
   return (
     <LineChart
-      width={600}
+      width={400}
       height={300}
       data={data}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
       <Legend verticalAlign="top" height={36} />
-      <Line
-        type="monotone"
-        dataKey="average"
-        stroke="#8884d8"
-        label="Average"
-      />
+      <Line type="monotone" dataKey="average" stroke="#8884d8" name="Average" />
       <Line type="monotone" dataKey="high" stroke="#870900" label="High" />
       <Line type="monotone" dataKey="low" stroke="#2384d8" label="Low" />
       <CartesianGrid stroke="#ccc" />

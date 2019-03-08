@@ -35,11 +35,15 @@ class DashboardContainer extends React.Component {
       <div className={classes.root}>
         <Grid container spacing={16}>
           <Grid item xs={1} />
-          <Grid item xs={10} sm={5}>
+          <Grid item xs={10} sm={5} textAlign="center">
             <DroneMap droneData={droneData} />
           </Grid>
           <Grid item xs={10} sm={5}>
             <h1>Forecast for {forecast.title}</h1>
+            <small>
+              This forecast changes location with the drone since I thought that
+              would be interesting
+            </small>
             <WeatherChart className={classes.chart} forecast={forecast} />
           </Grid>
           <Grid item xs={1} />
